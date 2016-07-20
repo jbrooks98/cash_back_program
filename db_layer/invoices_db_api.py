@@ -1,10 +1,10 @@
 #!/usr/bin/env python
-import sqlite3
 import itertools
 from decimal import Decimal
 from accrual_conf import (
     DB_NAME, CASH_BACK_PERCENTAGE, ACCRUAL_INVOICE_PAYOUT
 )
+from db_conn import connect_to_db
 
 TABLE_NAME = 'invoices'
 
@@ -18,7 +18,7 @@ def create_invoice_table():
     Returns:
         N/A
     """
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
     c.execute(
         "CREATE TABLE {} (id INTEGER PRIMARY \
@@ -42,7 +42,7 @@ def delete_invoice_table():
         N/A
     """
 
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
     c.execute("DROP TABLE {};".format(TABLE_NAME))
 
@@ -66,7 +66,7 @@ def create_invoice(customer_id, invoice_amount):
         Decimal('1.00')
     )
 
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
     c.execute(
         "INSERT OR IGNORE INTO {table} (customer_id, invoice_amount, "
@@ -95,7 +95,7 @@ def delete_invoice(invoice_id):
     Returns:
         N/A
     """
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
     c.execute("DELETE FROM {0} WHERE id = {1};".format(
         TABLE_NAME,
@@ -117,7 +117,7 @@ def delete_all_invoices():
     Returns:
         N/A
     """
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
     c.execute("DELETE FROM {}".format(TABLE_NAME))
     conn.commit()
@@ -136,7 +136,7 @@ def update_invoice_accrual_paid_date(invoice_ids):
     Returns:
         N/A
     """
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
     c.execute(
         "UPDATE {0} SET accrual_paid_date = DateTime('now')"
@@ -180,7 +180,7 @@ def get_accrual_payouts():
     Returns:
         list of dictionaries of the sql result set
     """
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
     sql = "SELECT SUM(accrual_amt) AS total_accrual_amt, \
         GROUP_CONCAT(id) AS invoice_ids, customer_id FROM \

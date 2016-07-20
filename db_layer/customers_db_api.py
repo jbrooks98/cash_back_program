@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-import sqlite3
 from accrual_conf import DB_NAME
+from db_conn import connect_to_db
 
 TABLE_NAME = 'customers'
 
@@ -14,7 +14,7 @@ def create_customer_table():
     Returns:
         N/A
     """
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
     c.execute(
         "CREATE TABLE {} (id INTEGER PRIMARY \
@@ -36,7 +36,7 @@ def delete_customer_table():
     Returns:
         N/A
     """
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
     c.execute("DROP TABLE {};".format(TABLE_NAME))
 
@@ -55,7 +55,7 @@ def create_customer(name):
     Returns:
         N/A
     """
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
 
     c.execute("INSERT OR IGNORE INTO {0} (name) VALUES ('{1}')".format(
@@ -78,7 +78,7 @@ def get_all_customers():
     Returns:
         list of tuples of customer ids and names
     """
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
 
     c.execute("SELECT id, name FROM {};".format(TABLE_NAME))
@@ -98,7 +98,7 @@ def get_customer_name(customer_id):
     Returns:
         customer name
     """
-    conn = sqlite3.connect(DB_NAME)
+    conn = connect_to_db(DB_NAME)
     c = conn.cursor()
 
     c.execute("SELECT name FROM {0} WHERE id = {1};".format(
