@@ -2,7 +2,7 @@
 import sqlite3
 import itertools
 from decimal import Decimal
-from conf import (
+from accrual_conf import (
     DB_NAME, CASH_BACK_PERCENTAGE, ACCRUAL_INVOICE_PAYOUT
 )
 

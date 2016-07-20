@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 import sqlite3
-from conf import DB_NAME
+from accrual_conf import DB_NAME
 
 
 TABLE_NAME = 'customers'
