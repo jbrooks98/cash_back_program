@@ -41,7 +41,7 @@ In a terminal, from the project directory run:
 `python accrual_payment.py
 
 
-A SQLite database is initially created called `accrual_payments.db` to store. You can perform some basic table and data actions using the database api functions in the directory db_layer if you want to change the default data.
+A SQLite database is initially created called `accrual_payments.db`to store all customer and invoice data. You can perform some basic table and data actions using the database api functions in the directory db_layer if you want to change the default data.
 
 Configurations can be made in `accrual_conf.py`.  
 
