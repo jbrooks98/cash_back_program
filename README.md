@@ -2,9 +2,7 @@ Cash Back Program
 ===
 Project:    Cash Back Program  
 Author:     Jason Brooks  
-Email:      jbrooks98@gmail.com  
 Version:    1.0 
-License:    GNU GPLv3  
 Main:       accrual_payment.py  
 Python:     2.7.6
 
