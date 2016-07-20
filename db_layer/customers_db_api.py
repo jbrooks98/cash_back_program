@@ -2,7 +2,6 @@
 import sqlite3
 from accrual_conf import DB_NAME
 
-
 TABLE_NAME = 'customers'
 
 
