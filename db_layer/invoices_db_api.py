@@ -150,7 +150,7 @@ def update_invoice_accrual_paid_date(invoice_ids):
 
 def dict_gen(curs):
     """
-    Generates a python dict from a sqlite result set
+    Generates a python dict from a SQLite result set
 
     Args:
         curs: cursor object

@@ -9,10 +9,10 @@ Python:     2.7.6
 
 Description
 ---
-Customers are eligible to receive a percentage of money back each time they are invoiced.  After a certain amount of invoices a payment gets made to the customer.  Users will be prompted to enter addtional invoices for a customer until the threshold for an accrual payout is met:
+Customers are eligible to receive a percentage of money back each time they are invoiced.  After a certain amount of invoices a payment gets made to the customer.  Users will be prompted to enter additional invoices for a customer until the threshold for an accrual payout is met:
 
 
-- A customer is to recieve 5% accrual per invoice.
+- A customer is to receive 5% accrual per invoice.
 - Every 6th invoice a customer will get paid the total accrual amount they have accumulated
 
 Sample output:
@@ -42,7 +42,9 @@ In a terminal, from the project directory run:
 
 ```
 
-A SQLite database is initially created called `accrual_payments.db` to store. You can peform some basic table and data actions using the database api functions in the directory db_layer if you want to change the default data.
+A SQLite database is initially created called `accrual_payments.db` to store.
+You can perform some basic table and data actions using the database api
+functions in the directory db_layer if you want to change the default data.
 
 Configurations can be made in `accrual_conf.py`..  
 

@@ -47,7 +47,6 @@ def delete_customer_table():
 
 
 def create_customer(name):
-
     """
     creates a customer in the customer table
     Args:
