@@ -47,7 +47,7 @@ You can perform some basic table and data actions using the database api
 functions in the directory db_layer if you want to change the default data.
 
 Configurations can be made in `accrual_conf.py`..  
-
+```
 
 Notes
 ---
