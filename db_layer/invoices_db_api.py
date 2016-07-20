@@ -107,6 +107,25 @@ def delete_invoice(invoice_id):
     return
 
 
+def delete_all_invoices():
+    """
+    deletes all invoices from the invoices table
+
+    Args:
+        N/A
+
+    Returns:
+        N/A
+    """
+    conn = sqlite3.connect(DB_NAME)
+    c = conn.cursor()
+    c.execute("DELETE FROM {}".format(TABLE_NAME))
+    conn.commit()
+    conn.close()
+
+    return
+
+
 def update_invoice_accrual_paid_date(invoice_ids):
     """
     updates an invoice to indicate payment has been sent

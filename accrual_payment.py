@@ -35,13 +35,14 @@ def select_customer():
     Returns:
         N/A
     """
-
     all_customers = get_all_customers()
+
     if not all_customers:
         create_new_customer()
         all_customers = get_all_customers()
 
     all_customers = dict(all_customers)
+
     for key, value in all_customers.items():
         print "{0}: {1}".format(key, value)
 
@@ -67,7 +68,6 @@ def create_customer_invoice(customer_id):
     Returns:
         N/A
     """
-
     while True:
         try:
             invoice_amount = Decimal(
@@ -98,7 +98,6 @@ def __pay_customer_accruals():
     Returns:
         N/A
     """
-
     accrual_payments = get_accrual_payouts()
 
     if not accrual_payments:
