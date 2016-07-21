@@ -134,10 +134,9 @@ def update_invoice_accrual_paid_date(invoice_ids):
     """
     conn = connect_to_db(DB_NAME)
     c = conn.cursor()
-
-    c.execute(
+    c.executemany(
         """UPDATE invoices SET accrual_paid_date = DateTime('now')
-        WHERE id IN (%s)""" % ','.join('?'*len(invoice_ids)), invoice_ids
+        WHERE id IN (?)""", zip(iter(invoice_ids))
     )
 
     conn.commit()
@@ -184,7 +183,9 @@ def get_accrual_payouts():
     sql = """SELECT SUM(accrual_amt) AS total_accrual_amt,
         GROUP_CONCAT(id) AS invoice_ids, customer_id FROM
         invoices WHERE accrual_paid_date IS null or accrual_paid_date = ''
-        GROUP BY customer_id HAVING count(*) > %s""" % ACCRUAL_INVOICE_PAYOUT
+        GROUP BY customer_id HAVING count(*) > {}""".format(
+        ACCRUAL_INVOICE_PAYOUT
+    )
 
     results = [r for r in dict_gen(c.execute(sql))]
 
