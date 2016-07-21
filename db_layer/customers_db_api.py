@@ -2,8 +2,6 @@
 from accrual_conf import DB_NAME
 from db_conn import connect_to_db
 
-TABLE_NAME = 'customers'
-
 
 def create_customer_table():
     """
@@ -17,9 +15,9 @@ def create_customer_table():
     conn = connect_to_db(DB_NAME)
     c = conn.cursor()
     c.execute(
-        "CREATE TABLE {} (id INTEGER PRIMARY \
-        KEY AUTOINCREMENT, name VARCHAR NOT NULL, CONSTRAINT name_unique \
-        UNIQUE (name));".format(TABLE_NAME)
+        """CREATE TABLE customers (id INTEGER PRIMARY
+        KEY AUTOINCREMENT, name VARCHAR NOT NULL, CONSTRAINT name_unique
+        UNIQUE (name))"""
     )
     conn.commit()
     conn.close()
@@ -38,7 +36,7 @@ def delete_customer_table():
     """
     conn = connect_to_db(DB_NAME)
     c = conn.cursor()
-    c.execute("DROP TABLE {};".format(TABLE_NAME))
+    c.execute("DROP TABLE customers")
 
     conn.commit()
     conn.close()
@@ -58,11 +56,9 @@ def create_customer(name):
     conn = connect_to_db(DB_NAME)
     c = conn.cursor()
 
-    c.execute("INSERT OR IGNORE INTO {0} (name) VALUES ('{1}')".format(
-        TABLE_NAME,
-        name)
+    c.execute(
+        "INSERT OR IGNORE INTO customers (name) VALUES (?)", ([name])
     )
-
     conn.commit()
     conn.close()
 
@@ -81,7 +77,7 @@ def get_all_customers():
     conn = connect_to_db(DB_NAME)
     c = conn.cursor()
 
-    c.execute("SELECT id, name FROM {};".format(TABLE_NAME))
+    c.execute("SELECT id, name FROM customers")
 
     customer_names = c.fetchall()
     conn.close()
@@ -101,11 +97,9 @@ def get_customer_name(customer_id):
     conn = connect_to_db(DB_NAME)
     c = conn.cursor()
 
-    c.execute("SELECT name FROM {0} WHERE id = {1};".format(
-        TABLE_NAME,
-        customer_id)
+    c.execute(
+        "SELECT name FROM customers WHERE id = ?", ([customer_id])
     )
-
     customer_name = c.fetchone()[0]
     conn.close()
 

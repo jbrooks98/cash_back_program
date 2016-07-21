@@ -70,12 +70,10 @@ def create_customer_invoice(customer_id):
     """
     while True:
         try:
-            invoice_amount = Decimal(
-                raw_input("Enter invoice dollar amount: ").strip()
-            )
+            invoice_amount = raw_input("Enter invoice dollar amount: ")
 
             if invoice_amount <= 0:
-                raise ValueError()
+                raise ValueError('Amount must be positive.')
 
             result = create_invoice(customer_id, invoice_amount)
 
@@ -84,8 +82,8 @@ def create_customer_invoice(customer_id):
 
             __pay_customer_accruals()
 
-        except ValueError:
-            print 'Enter a valid invoice amount'
+        except ValueError as e:
+            print '{} Enter a valid invoice amount'.format(e)
 
 
 def __pay_customer_accruals():
@@ -105,16 +103,21 @@ def __pay_customer_accruals():
         return
 
     for accrual_payment in accrual_payments:
-        update_invoice_accrual_paid_date(accrual_payment['invoice_ids'])
+        invoice_ids = accrual_payment['invoice_ids'].split(',')
+        update_invoice_accrual_paid_date(invoice_ids)
 
         customer_name = get_customer_name(
             str(accrual_payment['customer_id']).strip()
         )
 
+        pay_out_amount = Decimal(
+            accrual_payment['total_accrual_amt']
+        ).quantize(Decimal('1.00'))
+
         print ("Congrats {customer} will get a payment in the amount of "
                "${amount} from invoice ids {invoice_ids}".format(
                 customer=customer_name,
-                amount=str(accrual_payment['total_accrual_amt']).strip(),
+                amount=pay_out_amount,
                 invoice_ids=str(accrual_payment['invoice_ids']).strip()
                 ))
 
